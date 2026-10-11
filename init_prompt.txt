@@ -1,0 +1,269 @@
+Aquí tienes el prompt listo para pasárselo a Kilo Code:
+
+ROLE
+You are an autonomous technical-writing agent. Your job is to build a library of English study PDFs: ONE VOLUME PER TECHNOLOGY, based on the free tutorials listed below.
+
+GOAL
+For each technology, read the official/free tutorial site, then write ORIGINAL study notes (summary + examples + tests) and compile them into a clean PDF volume.
+
+TECHNOLOGIES AND SOURCES (36 volumes)
+1. HTML → html.com
+2. CSS → web.dev/learn/css
+3. JavaScript → javascript.info
+4. React → reactplay.io
+5. Vue → learnvue.co
+6. Angular → angular.dev/tutorials
+7. Git → git-scm.com/book
+8. Web3 → learnweb3.io
+9. Python → learnpython.org
+10. SQL → w3schools.com/sql
+11. Blockchain → cryptozombies.io
+12. Next.js → nextjs.org/learn
+13. AI (Basics) → elementsofai.com
+14. PHP → phptheirightway.com
+15. API → rapidapi.com/learn
+16. Go → learn-golang.org
+17. Rust → rust-lang.org/learn
+18. Design Patterns → refactoring.guru
+19. TypeScript → typescriptlang.org/docs
+20. C++ → cplusplus.com/doc/tutorial
+21. Java → docs.oracle.com/javase/tutorial
+22. C# → dotnet.microsoft.com/learn/csharp
+23. Swift → swift.org/learn
+24. Django → djangoproject.com/start
+25. Flask → flask.palletsprojects.com/tutorial
+26. Docker → docker.com/get-started
+27. Kubernetes → kubernetes.io/docs/tutorials
+28. Linux → linuxjourney.com
+29. Cybersecurity → tryhackme.com
+30. DevOps → roadmap.sh/devops
+31. Cloud (AWS) → aws.amazon.com/training
+32. Cloud (GCP) → cloudskillsboost.google
+33. Cloud (Azure) → microsoft.com/learn/azure
+34. Data Structures → visualgo.net
+35. System Design → systemdesign.one
+(Also include a short "Vol. 00 – Index & Study Guide" listing all volumes.)
+
+PHASE 0 – PLAN (do this first, show me before continuing)
+- Create the project folder structure (see below).
+- For each technology, fetch the source site's table of contents and produce /plan/<tech>.md with the list of lessons/chapters you will cover.
+- Report any site that is unreachable, requires login (e.g. TryHackMe, AWS/GCP/Azure training portals), or is paywalled. For those, use the free public documentation sections only and flag it.
+- Stop and wait for my approval of the plan. Then process volumes one at a time.
+
+PER-VOLUME WORKFLOW
+1. Read the tutorial pages in order (web fetch / scraping with polite delays, respect robots.txt and each site's terms).
+2. Write ORIGINAL notes in English, in your own words. Do NOT copy text verbatim and do NOT reproduce full pages, images or code blocks wholesale from the sources. Short snippets are fine only when needed, with attribution. Many of these sites are copyrighted; the PDFs are personal study material.
+3. Write all code examples yourself and make sure they actually run (or compile). Test them in the sandbox where possible.
+4. Build the volume in Markdown first (/src/<NN>-<tech>.md), then convert it to PDF.
+
+VOLUME STRUCTURE (same for every volume)
+- Cover page: "Vol. NN – <Technology>", source site, date generated
+- Table of contents (clickable)
+- "How to use this volume" (prerequisites, estimated study time)
+- Chapters following the source's learning path. Each chapter contains:
+  a) Summary: 5–10 bullet points of key ideas
+  b) Concepts explained simply, with a small diagram or table where useful
+  c) Examples: minimal, runnable, commented code, with expected output
+  d) Common mistakes and best practices
+  e) Practice exercises (3–5) with solutions at the end of the chapter
+  f) Mini test: 5–10 questions (multiple choice, true/false, short code questions) with an answer key and brief explanations
+- Final chapter: Cheat sheet (1–2 pages)
+- Final test: 20–30 mixed questions covering the whole volume, with answers
+- Sources section: URLs of every page consulted
+
+FORMAT AND QUALITY
+- Language: English only. Clear, concise, beginner-to-intermediate level.
+- PDF: A4, readable font (e.g. Inter/Source Sans for text, JetBrains Mono for code), syntax-highlighted code, page numbers, header with volume title, bookmarks/outline enabled.
+- Consistent style across all volumes.
+- Length target: 40–120 pages per volume depending on the technology's size.
+- Use Pandoc + LaTeX/WeasyPrint (or an equivalent tool) for the PDF build. Create a reusable build script (build.sh / build.py) and a shared template.
+
+OUTPUT STRUCTURE
+/learn-for-free
+  /plan/            (one plan file per tech)
+  /src/             (markdown sources, one per volume)
+  /code/<tech>/     (all tested example code)
+  /pdf/             (final PDFs: 00-index.pdf, 01-html.pdf, 02-css.pdf, ...)
+  /assets/          (template, fonts, css)
+  build.sh
+  README.md         (how to rebuild, status table of volumes: planned / drafted / reviewed / done)
+
+RULES
+- Work on ONE volume at a time. Finish, validate and save it before starting the next.
+- After each volume, run a checklist: all code tested, all questions have answers, TOC links work, no verbatim copied passages, sources listed.
+- Update the status table in README.md after every volume.
+- If something is ambiguous or blocked, log it in /plan/ISSUES.md and continue with the next item instead of stopping.
+- Start with Phase 0 now.
+
+Si quieres, te preparo una versión más corta por volumen (para repetirla por tecnología) o la traduzco al español.
+
+Un segundo prompt para hacer una web app / mobile en Django y android.
+
+Con todo lo necesario. Internacionalización, gamificacion...y más cosas importantes para una app.Que sea un pago pequeño por tecnología. 2 eur. O asi, por aprender. Test por lecciones, y examen final..se trata de poder ofrecer una certificación de aprendizaje.
+
+Aquí tienes el segundo prompt. He asumido Django (backend + web) y Expo/React Native para Android, que ya dominas y te deja iOS abierto. Si prefieres Kotlin nativo, cambia la sección “Mobile”.
+
+ROLE
+You are a senior full-stack engineer and product architect. Build "Learn for Free Academy": a paid micro-course platform (web + Android) that sells one course per technology for about 2 EUR, with lesson quizzes, a final exam and a verifiable completion certificate.
+
+CONTENT SOURCE
+The courses come from the 35 Markdown volumes in /learn-for-free/src (original notes, examples, mini tests, final tests, cheat sheets). Build an importer that turns each volume into: Course → Chapters/Lessons → Quiz questions → Final exam question pool. PDFs are a downloadable bonus after purchase.
+
+STACK
+- Backend: Python 3.12, Django 5, Django REST Framework, PostgreSQL, Redis, Celery, drf-spectacular (OpenAPI), JWT auth (SimpleJWT) + social login (Google, Apple).
+- Web: Django templates + HTMX + Tailwind (SEO-friendly, fast, responsive), PWA-ready.
+- Mobile: Expo / React Native + TypeScript targeting Android first (iOS-ready), consuming the REST API. Offline lesson caching, secure token storage, push notifications (FCM).
+- Infra: Docker Compose, Nginx, GitHub Actions CI/CD, Sentry, environment-based settings, .env.example.
+
+PHASE 0 – PLAN (show me before coding)
+Produce /docs/ARCHITECTURE.md, data model (ERD), API spec, screen list, milestones and risks. Stop and wait for my approval, then build milestone by milestone.
+
+CORE FEATURES
+1. Accounts: email/password, social login, email verification, password reset, profile, GDPR data export and account deletion.
+2. Catalog: course list with search, filters (level, category), course detail page (syllabus, free preview lesson, reviews).
+3. Payments: ~2 EUR per course (price configurable per course). Stripe Checkout on web, Google Play Billing on Android (one-time products), server-side receipt validation, webhooks, invoices/receipts by email, VAT/tax handling via Stripe Tax, refunds, promo codes, optional bundle ("all courses") price. Entitlements model so access is unlocked only after verified payment.
+4. Learning: lessons rendered from Markdown with syntax-highlighted code, progress tracking, resume where you left off, bookmarks, personal notes, offline mode on mobile.
+5. Assessment:
+   - Mini quiz after each lesson (multiple choice, true/false, short answer, code-output questions), instant feedback and explanations, unlimited retries.
+   - Final exam per course: random questions drawn from a pool (no two attempts identical), timer, pass mark 70%, max 3 attempts per 24h, answer review after finishing, server-side grading only.
+   - Anti-cheating basics: shuffled questions/options, time limit, rate limiting, attempt logging.
+6. Certification:
+   - On passing, generate a PDF certificate (name, course, score, date, unique ID, QR code).
+   - Public verification page /verify/<certificate-id> and shareable link (LinkedIn "Add to profile" link, Open Graph preview).
+   - Name on certificate is editable once before issuance. Include a clear disclaimer: certificate of course completion issued by Learn for Free Academy, not an accredited or official vendor certification, and no affiliation with the source sites or technology owners.
+7. Gamification: XP per lesson/quiz/exam, levels, daily streaks (with timezone handling), badges, weekly leaderboard (opt-in, privacy-safe), daily goals, achievement unlocks, confetti/animations, streak reminder notifications.
+8. Internationalization: all UI strings via gettext (Django) and i18next (mobile). Launch languages: English, Spanish (more easy to add). Locale-aware dates, numbers and currency; RTL-ready layout; language switcher; course content stays in English for now but the data model supports translated lessons/questions.
+9. Notifications: email (transactional via Anymail/SES or Postmark), push (FCM), in-app inbox; user-controlled preferences.
+10. Admin & content ops: Django admin customized for courses, lessons, questions, orders, certificates; import/re-import volumes; content versioning; draft/published states; question analytics (difficulty, most-missed).
+11. Analytics & KPIs: privacy-friendly analytics (PostHog or Plausible), funnels (visit → purchase → completion → certificate), revenue dashboard.
+12. Support: FAQ, contact form, in-app feedback, course reviews/ratings.
+
+NON-FUNCTIONAL REQUIREMENTS
+- Security: OWASP top 10, rate limiting, CSRF/CORS, secrets management, dependency scanning, audit log for payments and certificates.
+- Legal: Privacy Policy, Terms of Service, Cookie consent, refund policy (EU 14-day rules for digital content), consent text at checkout, Google Play data-safety form notes.
+- Accessibility: WCAG 2.1 AA on web, screen-reader labels on mobile, dark mode.
+- Performance: pagination, caching, CDN for static/media, query optimization (django-debug-toolbar checks), Lighthouse score ≥ 90.
+- Quality: pytest + factory_boy (≥ 80% coverage on backend), API contract tests, React Native Testing Library + Detox/Maestro smoke tests, linting (ruff, black, eslint), pre-commit hooks.
+- Observability: structured logging, health checks, backups, migration strategy.
+
+DATA MODEL (minimum)
+User, Profile, Course, Chapter, Lesson, Question, Choice, QuizAttempt, ExamAttempt, Enrollment/Entitlement, Order, Payment, PromoCode, Certificate, XPEvent, Badge, UserBadge, Streak, Note, Bookmark, Review, Notification, DeviceToken.
+
+DELIVERABLES
+/learn-for-free-academy
+  /backend (Django project, apps: accounts, catalog, learning, assessment, payments, certificates, gamification, notifications, content_import)
+  /mobile (Expo app)
+  /docs (architecture, API, deployment, store-publishing checklist for Google Play)
+  /infra (docker-compose, nginx, CI)
+  README.md (setup in 5 commands, status table per milestone)
+
+MILESTONES
+M1 Foundation (auth, i18n, CI, Docker) → M2 Content import + catalog + lessons → M3 Quizzes + final exam → M4 Payments + entitlements → M5 Certificates + verification → M6 Gamification + notifications → M7 Android app → M8 Hardening, legal, analytics, store release.
+
+RULES
+- One milestone at a time; each ends with tests passing, migrations clean, docs updated and a short demo script.
+- Never trust the client: grading, entitlements and XP are computed server-side.
+- Log blockers in /docs/ISSUES.md and continue with the next item.
+- Start with Phase 0 now.
+
+Dos avisos antes de lanzarlo:
+
+Contenido y copyright: como vas a vender los cursos, es clave que los apuntes sean de verdad originales (el primer prompt ya lo exige) y revisar que no copien texto de las webs fuente. Para vender, mejor no usar sus nombres ni logos como marca.
+Pagos en Android: Google Play exige usar su sistema de facturación para contenido digital (comisión del 15–30 %). Con 2 € el margen es pequeño, así que conviene valorar el pack “todos los cursos” o una suscripción.
+
+¿Quieres que prepare también un prompt corto para cada milestone?
+
+Si
+
+Redactando prompts breves para cada hito del proyecto.
+
+Aquí tienes los 8 prompts cortos, uno por milestone. Cada uno asume que Kilo Code ya tiene el prompt maestro y el ARCHITECTURE.md aprobado.
+
+M1 – Foundation
+
+Execute Milestone M1 (Foundation) from the approved plan.
+- Django 5 project with split settings (base/dev/prod), .env support, PostgreSQL, Redis, Celery.
+- Docker Compose (web, db, redis, worker, nginx) and GitHub Actions CI (ruff, black, pytest).
+- Custom User model (email login), allauth with Google/Apple, email verification, password reset, JWT for the API.
+- i18n set up with gettext: EN + ES, language switcher, locale middleware.
+- Base Tailwind + HTMX layout, dark mode, accessible navigation.
+- Health check endpoint, Sentry, structured logging, pre-commit hooks.
+Definition of done: `docker compose up` works, tests pass, README setup in 5 commands. Update status table and stop.
+
+M2 – Content import, catalog, lessons
+
+Execute Milestone M2.
+- Models: Course, Chapter, Lesson (+ draft/published, versioning).
+- Management command `import_volume <path.md>` that parses a volume from /learn-for-free/src into Course → Chapters → Lessons, idempotent and re-runnable.
+- Course list (search, filters by level/category), course detail with syllabus and one free preview lesson.
+- Lesson page: Markdown rendering, syntax highlighting, prev/next, progress tracking, resume point, bookmarks, personal notes.
+- Customized Django admin for content.
+- REST endpoints + OpenAPI for catalog and lessons.
+Tests: importer on 2 sample volumes, progress logic, API permissions (locked lessons not exposed). Update README status and stop.
+
+M3 – Quizzes and final exam
+
+Execute Milestone M3.
+- Models: Question, Choice, QuizAttempt, ExamAttempt. Question types: multiple choice, true/false, short answer, code-output.
+- Importer extension: mini tests per chapter and final-test pool from the volumes, with answer keys and explanations.
+- Lesson quiz: instant feedback, explanations, unlimited retries, best score stored.
+- Final exam: random draw from pool, shuffled order/options, timer, pass mark 70%, max 3 attempts per 24h, review after finishing.
+- All grading server-side; answers never sent to the client before submission.
+- Admin question analytics (difficulty, most missed).
+Tests: grading edge cases, attempt limits, timer expiry, no answer leakage in API. Update README and stop.
+
+M4 – Payments and entitlements
+
+Execute Milestone M4.
+- Price per course (default ~2 EUR, configurable), optional bundle, promo codes.
+- Stripe Checkout for web with Stripe Tax, webhooks (idempotent), receipts by email, refunds from admin.
+- Entitlement model: access unlocked only after a verified payment event; Order/Payment audit log.
+- Google Play Billing endpoint: server-side purchase token validation, acknowledge purchases, restore purchases.
+- EU digital-content consent checkbox at checkout and refund policy page.
+- Locked/unlocked states across catalog, lessons and exam.
+Tests: webhook replay, failed/refunded payments, entitlement revocation, price changes. Use Stripe test mode only. Update README and stop.
+
+M5 – Certificates and verification
+
+Execute Milestone M5.
+- On passing a final exam, issue a Certificate (unique ID, score, date, course version).
+- PDF generation (WeasyPrint) with name, course, score, date, certificate ID and QR code; EN/ES templates.
+- Name editable once before issuance.
+- Public page /verify/<id> showing validity, course, date (no private data), plus Open Graph preview and LinkedIn "Add to profile" link.
+- Revocation support from admin.
+- Disclaimer on certificate and verify page: completion certificate issued by Learn for Free Academy, not an official vendor certification.
+Tests: issuance only after pass, duplicate prevention, verification of valid/revoked/unknown IDs. Update README and stop.
+
+M6 – Gamification and notifications
+
+Execute Milestone M6.
+- XP events (lesson, quiz, exam, streak), levels, daily streaks with user timezone, daily goals, badges/achievements, opt-in weekly leaderboard.
+- Anti-abuse: XP only once per lesson/quiz milestone, server-side calculation.
+- Profile page with stats, badges and streak calendar.
+- Notifications: email (transactional), in-app inbox, push via FCM (DeviceToken model), streak reminders via Celery beat, user preferences.
+- Subtle animations (confetti on pass/level up), respecting reduced-motion.
+Tests: streak edge cases (timezones, DST), XP idempotency, leaderboard privacy. Update README and stop.
+
+M7 – Android app (Expo)
+
+Execute Milestone M7.
+- Expo + TypeScript app consuming the REST API: auth (email + Google), catalog, course detail, lessons, quizzes, final exam, certificates (view/share PDF), profile, gamification.
+- i18next EN/ES, dark mode, accessibility labels.
+- Secure token storage, automatic refresh, offline cache of purchased lessons, sync of progress when back online.
+- Google Play Billing integration (react-native-iap or equivalent) with server validation against M4 endpoints.
+- FCM push notifications, deep links to lessons and /verify.
+- EAS Build config for internal testing track.
+Tests: component tests + Maestro smoke flow (login → buy test product → lesson → quiz). Update README and stop.
+
+M8 – Hardening, legal and release
+
+Execute Milestone M8.
+- Security review against OWASP top 10: rate limiting, CORS/CSRF, secrets, dependency audit, audit logs.
+- GDPR: data export, account deletion, cookie consent, Privacy Policy, Terms, refund policy pages (EN/ES).
+- Performance: query optimization, caching, CDN config, Lighthouse ≥ 90, load test of exam endpoints.
+- Accessibility pass (WCAG 2.1 AA) on web and mobile.
+- Analytics (PostHog or Plausible) with funnel visit → purchase → completion → certificate; revenue dashboard.
+- Backups, migrations strategy, production deployment guide, Google Play store checklist (data safety form, screenshots, listing in EN/ES).
+Produce /docs/RELEASE_CHECKLIST.md with pass/fail status per item. Stop for my review.
+
+Un consejo de uso: pásalos de uno en uno y no lances el siguiente hasta revisar el resultado. Si quieres, preparo también un prompt de “revisión” que Kilo Code ejecute al final de cada milestone para auditar tests, seguridad y cumplimiento del plan.

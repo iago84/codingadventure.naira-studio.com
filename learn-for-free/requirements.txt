@@ -1,0 +1,4 @@
+# Learn for Free (Python packages)
+# Used by build.py to convert the Markdown volumes into PDFs.
+reportlab>=4.0
+pygments>=2.15
